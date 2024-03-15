@@ -92,7 +92,7 @@ class HotelCheckIn(Document):
 
         total_amount = 0
         for room in self.rooms:
-            item_doc = frappe.get_doc('Item', f'Room {room_no}')
+            item_doc = frappe.get_doc('Item', f'Room {room.room_no}')
             default_income_account = None
             for item_default in item_doc.item_defaults:
                 if item_default.company == self.company:
