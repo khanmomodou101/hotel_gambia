@@ -105,3 +105,36 @@ def get_rooms():
 @frappe.whitelist()
 def get_check_in():
     return frappe.get_list('Hotel Check In', fields=['*'])
+
+@frappe.whitelist()
+def create_daily_report():
+    check_in = frappe.db.count('Hotel Check In', {'check_in': frappe.utils.today()})
+    available_rooms = frappe.db.count('Rooms', {'room_status': 'Available'})
+    checked_in = frappe.db.count('Rooms', {'room_status': 'Checked In'})
+    daily_report = frappe.new_doc("Daily Report")
+    daily_report.date = frappe.utils.today()
+    daily_report.bookings = check_in
+    daily_report.available_rooms = available_rooms
+    daily_report.checked_in = checked_in
+    daily_report.save()
+    frappe.db.commit()
+    return checked_in
+
+@frappe.whitelist()
+def create_work_order(doc, method=None):
+    inv = frappe.get_doc("Sales Invoice", doc)
+    for item in inv.items:
+        item_doc = frappe.get_doc("Item", item.item_code)
+        bom = frappe.get_list('BOM', filters={'item': item.item_code, 'is_default': 1}, fields=['name'])        
+        if bom:
+            work_order = frappe.new_doc("Work Order")
+            work_order.production_item = item.item_code
+            work_order.qty = item.qty
+            work_order.bom_no = bom[0].name
+            work_order.skip_transfer = 1
+            work_order.fg_warehouse = frappe.get_value('BOM', bom[0].name, 'custom_fg_warehouse')
+            work_order.insert(ignore_permissions=True)
+            work_order.save()
+            work_order.submit()
+            frappe.db.commit()
+
