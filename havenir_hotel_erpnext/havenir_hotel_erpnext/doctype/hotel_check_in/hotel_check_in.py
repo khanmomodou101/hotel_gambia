@@ -33,15 +33,16 @@ class HotelCheckIn(Document):
 
     def validate_room(self):
             for room in self.rooms:
-                room = frappe.get_doc('Rooms', room.room_no)
-                reservations = room.get('reservations')
+                room_doc = frappe.get_doc('Rooms', room.room_no)
+                reservations = room_doc.get('reservations')
                 if reservations:
+                    reservation_ids = [reservation.reservation_id for reservation in reservations]
+                    if self.reservation_id not in reservation_ids:
                         for reservation in reservations:
-                            if getdate(reservation.arrival_date) <= getdate(self.check_in) and getdate(self.check_in) <= getdate(reservation.departure):
-                                if reservation.departure:
-                                    frappe.throw(f'Room {room.name} is already reserved the selected date: (From {reservation.arrival_date} - {reservation.departure})')
-                                else:
-                                    frappe.throw(f'Room {room.name} is already reserved for the selected date: ({reservation.arrival_date})')
+                            if getdate(reservation.arrival_date) <= getdate(self.check_in) <= getdate(reservation.departure):
+                                frappe.throw(f'Room {room_doc.name} is already reserved for the selected date')
+                            elif getdate(self.check_in) < getdate(reservation.arrival_date) and getdate(self.check_out) > getdate(reservation.departure):
+                                frappe.throw(f'Room {room_doc.name} is already reserved during this period')
 
     def on_submit(self):
         if self.reservation_id:
@@ -49,6 +50,10 @@ class HotelCheckIn(Document):
             frappe.db.set_value('Reservation', self.reservation_id, 'status', 'Checked In')
 
         self.create_sales_invoice()
+        channel = frappe.get_doc('Channel', self.channel)
+        if channel.channel_type == 'Online Reservation':
+            self.create_payment_entry()
+        
         self.add_guest_to_in_house_guest()
         self.status = 'To Check Out'
         doc = frappe.get_doc('Hotel Check In', self.name)
@@ -57,6 +62,16 @@ class HotelCheckIn(Document):
             room_doc = frappe.get_doc('Rooms', room.room_no)
             room_doc.db_set('check_in_id', self.name)
             room_doc.db_set('room_status', 'Checked In')
+        
+        if self.reservation_id:
+             for room in self.rooms:
+                room = frappe.get_doc('Rooms', room.room_no)
+                reservations = room.get('reservations')
+                for reservation in reservations:
+                     if reservation.reservation_id == self.reservation_id:
+                        room.remove(reservation)
+                        room.save()
+
             
         
     def on_cancel(self):
@@ -78,7 +93,17 @@ class HotelCheckIn(Document):
     
     
            
-    
+    def calculate_discount(self):
+        discount_amount = self.discount_amount
+        discount_percentage = self.discount_percentage
+        discount_amount = 0
+        if self.discount_percentage:
+            discount_amount = (self.total_amount * self.discount_percentage) / 100
+        elif self.discount_amount:
+            discount_amount = self.discount_amount
+        else:
+            discount_amount = 0
+        return discount_amount        
 
     def create_sales_invoice(self):
         sales_invoice_doc = frappe.new_doc("Sales Invoice")
@@ -111,8 +136,11 @@ class HotelCheckIn(Document):
                     "amount": float(room.price) * float(self.duration),  # Convert to float before multiplication
                 },
             )
+        sales_invoice_doc.apply_discount_on = 'Grand Total'
+        sales_invoice_doc.discount_amount = self.calculate_discount()
         sales_invoice_doc.insert(ignore_permissions=True)
         sales_invoice_doc.submit()
+        frappe.db.commit()
 
 #add guest to in hosue guest
     def add_guest_to_in_house_guest(self):
@@ -147,6 +175,44 @@ class HotelCheckIn(Document):
             if self.unit_of_measurement == 'Days':
                 return add_to_date(self.check_in, days=self.duration)
             return add_to_date(self.check_in, self.duration, self.unit_of_measurement)
+    #create payment entry
+    def create_payment_entry(self):
+        channel = frappe.get_doc('Channel', self.channel)
+        company = frappe.get_doc('Company', self.company)
+        abbreviation = company.abbr
+        inv = frappe.get_doc('Sales Invoice', {'check_in_id': self.name})
+
+
+        payment = frappe.new_doc('Payment Entry')
+        payment.payment_type = 'Receive'
+        payment.company = self.company
+        payment.posting_date = self.check_in
+        payment.payment_date = self.check_in
+        payment.party_type = 'Customer'
+        payment.party =  self.guest_id
+        payment.mode_of_payment = self.channel
+        payment.paid_from = f'Debtors - {abbreviation}'
+        payment.paid_to = f'{channel.channel_name} - {abbreviation}'
+        payment.paid_amount = inv.total
+        payment.received_amount = inv.total
+        #append reference sales invoice
+        payment.append('references', {
+            'reference_doctype': 'Sales Invoice',
+            'reference_name': inv.name,
+            'total_amount': inv,
+            'outstanding_amount': inv.outstanding_amount,
+            'allocated_amount': inv.total,
+            
+
+        })
+        payment.total_allocated_amount = inv.total
+        payment.reference_no = inv.name
+        payment.reference_date = self.check_in
+        payment.insert()
+        payment.submit()
+        frappe.db.commit()
+
+
     
     #validate room availability
 def send_payment_sms(self):

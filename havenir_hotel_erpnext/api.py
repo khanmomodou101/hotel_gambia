@@ -137,4 +137,3 @@ def create_work_order(doc, method=None):
             work_order.save()
             work_order.submit()
             frappe.db.commit()
-

@@ -5,7 +5,7 @@
    "label": "Hotel Bookings"
   }
  ],
- "content": "[{\"id\":\"_FtXyHv-mU\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Hotel Bookings\",\"col\":12}},{\"id\":\"wF3pjKe0s1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Rooms\",\"col\":3}},{\"id\":\"n2ijQO5v0W\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Available Rooms\",\"col\":3}},{\"id\":\"y12qPKsS9A\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Bookings\",\"col\":3}},{\"id\":\"ZIQR0TluI_\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Bookings (This Month)\",\"col\":3}},{\"id\":\"5daVWKsHsi\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Arrivals\",\"col\":4}},{\"id\":\"fCYCp9Lrro\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Departure\",\"col\":4}},{\"id\":\"t1Y2-R7MmK\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"In House\",\"col\":4}},{\"id\":\"ulVwRgKArE\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ZyVG4-PzOp\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Check In\",\"col\":3}},{\"id\":\"Hoy5b-n-dd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Check Out\",\"col\":3}},{\"id\":\"TjcbR73MrH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Guests\",\"col\":3}},{\"id\":\"0ID7cwRInn\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Food Order\",\"col\":3}},{\"id\":\"LuqallDc66\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Room Type\",\"col\":3}},{\"id\":\"0Xkq6rQ7-L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rooms\",\"col\":3}},{\"id\":\"NkMqhIfufF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"-X1c4c18vK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Booking Cancellation\",\"col\":3}},{\"id\":\"pjg2lB6N18\",\"type\":\"card\",\"data\":{\"card_name\":\"Hotel Master\",\"col\":4}}]",
+ "content": "[{\"id\":\"_FtXyHv-mU\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Hotel Bookings\",\"col\":12}},{\"id\":\"wF3pjKe0s1\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Rooms\",\"col\":3}},{\"id\":\"n2ijQO5v0W\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Available Rooms\",\"col\":3}},{\"id\":\"y12qPKsS9A\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Bookings\",\"col\":3}},{\"id\":\"ZIQR0TluI_\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Bookings (This Month)\",\"col\":3}},{\"id\":\"5daVWKsHsi\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Arrivals\",\"col\":4}},{\"id\":\"fCYCp9Lrro\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Departure\",\"col\":4}},{\"id\":\"xCCGcl_hnr\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Guest In House\",\"col\":4}},{\"id\":\"ulVwRgKArE\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ZyVG4-PzOp\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Check In\",\"col\":3}},{\"id\":\"Hoy5b-n-dd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Check Out\",\"col\":3}},{\"id\":\"TjcbR73MrH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Guests\",\"col\":3}},{\"id\":\"0ID7cwRInn\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Hotel Food Order\",\"col\":3}},{\"id\":\"LuqallDc66\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Room Type\",\"col\":3}},{\"id\":\"0Xkq6rQ7-L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Rooms\",\"col\":3}},{\"id\":\"NkMqhIfufF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"-X1c4c18vK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Booking Cancellation\",\"col\":3}},{\"id\":\"pjg2lB6N18\",\"type\":\"card\",\"data\":{\"card_name\":\"Hotel Master\",\"col\":4}}]",
  "creation": "2023-07-16 18:01:20.570804",
  "custom_blocks": [],
  "docstatus": 0,
@@ -47,7 +47,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-04-27 20:03:49.394984",
+ "modified": "2024-05-22 15:28:51.853417",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Hotel",
@@ -57,16 +57,16 @@
    "number_card_name": "Arrivals"
   },
   {
+   "label": "Guest In House",
+   "number_card_name": "Guest In House"
+  },
+  {
    "label": "Departure",
    "number_card_name": "Departure"
   },
   {
    "label": "Total Bookings (This Month)",
    "number_card_name": "Total Bookings (This Month)"
-  },
-  {
-   "label": "In House",
-   "number_card_name": "In House"
   },
   {
    "label": "Total Rooms",

@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
+ "allow_rename": 1,
  "autoname": "field:email",
  "creation": "2020-01-29 14:39:12.726257",
  "doctype": "DocType",
@@ -143,7 +144,7 @@
   }
  ],
  "links": [],
- "modified": "2024-03-09 21:44:49.399290",
+ "modified": "2024-05-10 19:06:22.046506",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Hotel Guests",

@@ -30,8 +30,10 @@ frappe.ui.form.on('Reservation', {
 		let d = frappe.new_doc("Hotel Check In", {
 			'guest_id': frm.doc.guest_id,
 			'posting_date': frm.doc.posting_date,
-			'check_in_date': frm.doc.arrival_date,
+			'check_in': frm.doc.arrival_date,
 			'channel': frm.doc.channel,
+			'reservation_id': frm.doc.name,
+			'check_out': frm.doc.departure,
 			'reservation_id': frm.doc.name,
 		}, doc => {
 			//add the rooms to the hotel check in
