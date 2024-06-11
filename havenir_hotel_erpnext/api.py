@@ -137,3 +137,8 @@ def create_work_order(doc, method=None):
             work_order.save()
             work_order.submit()
             frappe.db.commit()
+
+@frappe.whitelist()
+def get_posting_date():
+    doc =frappe.get_doc("Hotel Check In", "CHK-IN-2024-00029")
+    return frappe.utils.getdate(doc.check_in)

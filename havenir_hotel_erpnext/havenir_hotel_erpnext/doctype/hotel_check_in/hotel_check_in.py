@@ -93,17 +93,17 @@ class HotelCheckIn(Document):
     
     
            
-    def calculate_discount(self):
-        discount_amount = self.discount_amount
-        discount_percentage = self.discount_percentage
-        discount_amount = 0
-        if self.discount_percentage:
-            discount_amount = (self.total_amount * self.discount_percentage) / 100
-        elif self.discount_amount:
-            discount_amount = self.discount_amount
-        else:
-            discount_amount = 0
-        return discount_amount        
+#    def calculate_discount(self):
+ #       discount_amount = self.discount_amount
+  #      discount_percentage = self.discount_percentage
+   #     discount_amount = 0
+    #    if self.discount_percentage:
+     #       discount_amount = (self.total_amount * self.discount_percentage) / 100
+      #  elif self.discount_amount:
+       #     discount_amount = self.discount_amount
+        #else:
+         #   discount_amount = 0
+#        re#turn discount_amount        
 
     def create_sales_invoice(self):
         sales_invoice_doc = frappe.new_doc("Sales Invoice")
@@ -112,8 +112,10 @@ class HotelCheckIn(Document):
         sales_invoice_doc.customer = self.guest_id
         sales_invoice_doc.check_in_id = self.name
         sales_invoice_doc.check_in_date = self.check_in
-        sales_invoice_doc.due_date = self.check_out
+        sales_invoice_doc.due_date = getdate(self.check_out)
         sales_invoice_doc.debit_to = company.default_receivable_account
+        sales_invoice_doc.edit_posting_date = 1
+        sales_invoice_doc.posting_date = getdate(self.check_in)
 
         total_amount = 0
         for room in self.rooms:
@@ -136,12 +138,15 @@ class HotelCheckIn(Document):
                     "amount": float(room.price) * float(self.duration),  # Convert to float before multiplication
                 },
             )
-        sales_invoice_doc.apply_discount_on = 'Grand Total'
-        sales_invoice_doc.discount_amount = self.calculate_discount()
+ #       sales_invoice_doc.apply_discount_on = 'Grand Total'
+  #      sales_invoice_doc.discount_amount = self.calculate_discount()
         sales_invoice_doc.insert(ignore_permissions=True)
         sales_invoice_doc.submit()
         frappe.db.commit()
 
+    #make early checkout
+    def early_checkout():
+        pass
 #add guest to in hosue guest
     def add_guest_to_in_house_guest(self):
         #check if user is already in
