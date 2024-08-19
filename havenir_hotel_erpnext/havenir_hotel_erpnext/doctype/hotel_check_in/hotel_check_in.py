@@ -103,7 +103,8 @@ class HotelCheckIn(Document):
        #     discount_amount = self.discount_amount
         #else:
          #   discount_amount = 0
-#        re#turn discount_amount        
+#        re#turn discount_amount  
+#      
 
     def create_sales_invoice(self):
         sales_invoice_doc = frappe.new_doc("Sales Invoice")
