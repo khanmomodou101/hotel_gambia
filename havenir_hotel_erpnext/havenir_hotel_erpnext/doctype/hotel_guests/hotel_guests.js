@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Hotel Guests", {
+
   guest_name: function(frm) {
     frm.set_value("guest_name", frm.doc.guest_name.toUpperCase());
   },

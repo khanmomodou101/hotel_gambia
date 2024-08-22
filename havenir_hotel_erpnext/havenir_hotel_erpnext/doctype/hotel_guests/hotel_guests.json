@@ -135,20 +135,20 @@
    "fieldname": "gender",
    "fieldtype": "Select",
    "label": "Gender",
-   "options": "\nMale\nFemale\n2 Females\nCouples\n2 Males"
+   "options": "\nMale\nFemale"
   },
   {
    "fieldname": "phone_no",
    "fieldtype": "Data",
-   "label": "Phone Number"
+   "label": "Phone Number",
+   "unique": 1
   }
  ],
  "links": [],
- "modified": "2024-05-10 19:06:22.046506",
+ "modified": "2024-08-20 04:44:58.339216",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Hotel Guests",
- "name_case": "Title Case",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

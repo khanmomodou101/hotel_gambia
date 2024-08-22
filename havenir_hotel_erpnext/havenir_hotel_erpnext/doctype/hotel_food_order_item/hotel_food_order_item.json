@@ -31,7 +31,6 @@
    "reqd": 1
   },
   {
-   "fetch_from": "item.standard_rate",
    "fieldname": "rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -56,7 +55,7 @@
  ],
  "istable": 1,
  "links": [],
- "modified": "2023-08-18 03:05:53.164439",
+ "modified": "2024-08-21 18:14:01.046187",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Hotel Food Order Item",

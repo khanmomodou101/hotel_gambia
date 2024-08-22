@@ -1,7 +1,7 @@
 // Copyright (c) 2020, Havenir and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Hotel Food Order", {
+frappe.ui.form.on("Food Order", {
   setup: function(frm) {
     // setting query for rooms to be visible in list
     frm.set_query("room", function(doc) {
@@ -147,7 +147,7 @@ frappe.ui.form.on("Hotel Food Order", {
   }
 });
 
-frappe.ui.form.on("Hotel Food Order Item", {
+frappe.ui.form.on("Food Order Item", {
   item: function(frm, cdt, cdn) {
     let row = frappe.get_doc(cdt, cdn);
     if (row.item) {

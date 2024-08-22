@@ -7,8 +7,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "room_number",
   "room_name",
+  "room_number",
   "room_status",
   "column_break_4",
   "room_type",
@@ -17,16 +17,15 @@
   "column_break_8",
   "price",
   "uom",
-  "ab",
   "section_break_6",
-  "facilities",
   "reservations"
  ],
  "fields": [
   {
    "fieldname": "room_name",
    "fieldtype": "Data",
-   "label": "Room Name"
+   "label": "Room Name",
+   "reqd": 1
   },
   {
    "fieldname": "room_status",
@@ -52,13 +51,6 @@
   {
    "fieldname": "section_break_6",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "facilities",
-   "fieldtype": "Table",
-   "label": "Facilities",
-   "options": "Room Facilities",
-   "reqd": 1
   },
   {
    "fieldname": "room_number",
@@ -109,21 +101,14 @@
    "label": "Reservations",
    "options": "Room Reservations",
    "read_only": 1
-  },
-  {
-   "default": "ab",
-   "fieldname": "ab",
-   "fieldtype": "Data",
-   "label": "ab"
   }
  ],
  "icon": "calender",
  "links": [],
- "modified": "2024-03-01 02:56:23.316515",
+ "modified": "2024-08-20 07:30:47.500931",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Rooms",
- "name_case": "UPPER CASE",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
